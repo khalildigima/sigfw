@@ -17,7 +17,7 @@ class Utils
         
         foreach($arr as $key=>$value)
         {
-            $arr[$key] = $this->clean_string($value);
+            $arr[$key] = self::clean_string($value);
         }
         
         return $arr;
