@@ -4,14 +4,14 @@ namespace Sigfw\Service;
 
 class Utils
 {
-    public function clean_string($str)
+    public static function clean_string($str)
     {
         $s = "";
         $s = htmlspecialchars($str, ENT_QUOTES);
         return $s;
     }
 
-    public function clean_array($arr) 
+    public static function clean_array($arr) 
     {
         if(!is_array($arr)) return $arr;
         
@@ -23,14 +23,14 @@ class Utils
         return $arr;
     }
 
-    public function format_date($date, $format = "d M Y")
+    public static function format_date($date, $format = "d M Y")
 	{
 		$date_created = date_create($date);
 		return date_format($date_created, $format);
 	}
 
     // DANGEROUS FUNCTION: danger of xss
-	public function deformat_html($text)
+	public static function deformat_html($text)
 	{
 		$text = str_replace("&lt;", "<", $text);
 		$text = str_replace("&gt;", ">", $text);
@@ -39,7 +39,7 @@ class Utils
 		return $text;	
 	}
 
-    public function dump($var)
+    public static function dump($var)
     {
         echo "<pre>";
         var_dump($var);
