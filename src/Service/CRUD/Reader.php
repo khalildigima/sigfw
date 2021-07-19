@@ -4,6 +4,7 @@ namespace Sigfw\Service\CRUD;
 
 use Sigfw\Service\CRUD\Base;
 use Sigfw\Service\Logger;
+use Sigfw\Service\Utils;
 use PDO;
 use PDOException;
 
@@ -63,8 +64,8 @@ class Reader extends Base
         $con = $this->verification_connection();
         if(!$con) return null;
 
-        $column_name = $this->clean_string($column_name);
-        $value = $this->clean_string($value);
+        $column_name = Utils::clean_string($column_name);
+        $value = Utils::clean_string($value);
 
         $sql = "SELECT * FROM `{$this->get_table_name()}` WHERE `{$column_name}`=:value;";
 
@@ -95,8 +96,8 @@ class Reader extends Base
         $con = $this->verification_connection();
         if(!$con) return null;
 
-        $column_name = $this->clean_string($column_name);
-        $value = $this->clean_string($value);
+        $column_name = Utils::clean_string($column_name);
+        $value = Utils::clean_string($value);
 
         $sql = "SELECT * FROM `{$this->get_table_name()}` WHERE `{$column_name}`=:value;";
 
