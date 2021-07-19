@@ -9,5 +9,9 @@ use Sigfw\Service\Model;
 use Sigfw\Service\Utils;
 
 $model = new Model('posts');
+
+$arr = [];
+$arr["body"] = "sigfw updated";
+
 $result = $model->get_all();
 Utils::dump($result);
