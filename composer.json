@@ -1,0 +1,14 @@
+{
+    "name": "signature/sigfw",
+    "description": "Basic framework for small application development",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {},
+	"autoload": {
+        "psr-4": {
+            "Sigfw\\": "src"
+        }
+    }
+}
