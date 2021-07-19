@@ -11,48 +11,56 @@ class Connection
     private $config = null;
     
     
-    public function __construct(Config $config)
+    public function __construct()
     {
-        $this->config = $config;
+        $_development = array(
+            "host" => "localhost",
+            "username" => "root",
+            "password" => "",
+            "dbname" => "api_sfw"
+        );
+
+        $_production = array(
+            "host" => "localhost",
+            "username" => "root",
+            "password" => "",
+            "dbname" => "api_sfw"
+        );
+
+        $this->config = new Config();
+        $this->config->set_development_config($_development);
+        $this->config->set_production_config($_production);
     }
 
     public function get_connection()
     {
         $con = null;
+        $_config = null;
         try 
         {
-            if(!$this->config->is_deploy()) {
-
-                // connection for offline or development
-                $development = $this->config->get_development_config();
-                if(!$development)
-                {
-                    Logger::add_error_message("Development database configuration not provided");
-                    return null;
-                }
-
-                $con = new PDO(
-                    'mysql:host=' . $development["host"] .';dbname=' . $development["dbname"],
-                    $development["username"], 
-                    $development["password"],
-                );
-                
-            } else {
-
-                // connection for online or production
-                $production = $this->config->get_production_config();
-                $con = new PDO(
-                    'mysql:host=' . $production["host"] .';dbname=' . $production["dbname"],
-                    $production["username"], 
-                    $production["password"],
-                );
-
-                if(!$production)
-                {
-                    Logger::add_error_message("Production database configuration not provided");
-                    return null;
-                }
+            
+            if(!$this->config->is_deploy()) 
+            {
+                $_config = $this->config->get_development_config();
             }
+            else
+            {
+                $_config = $this->config->get_production_config();
+            }
+
+            if(!$_config)
+            {
+                Logger::add_error_message("DB config is empty");
+                return null;
+            }
+
+
+            $con = new PDO(
+                'mysql:host=' . $_config["host"] .';dbname=' . $_config["dbname"],
+                $_config["username"], 
+                $_config["password"],
+            );
+            
 
             $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } 
