@@ -5,6 +5,7 @@ namespace Sigfw\Service;
 use Sigfw\Service\CRUD\Reader;
 use Sigfw\Service\CRUD\Creater;
 use Sigfw\Service\CRUD\Updater;
+use Sigfw\Service\CRUD\Deleter;
 
 class Model
 {
@@ -16,6 +17,7 @@ class Model
         $this->reader = new Reader($table_name);
         $this->creater = new Creater($table_name);
         $this->updater = new Updater($table_name);
+        $this->deleter = new Deleter($table_name);
     }
 
     /**************************
@@ -37,8 +39,18 @@ class Model
     /**************************
      * UPDATER CLASS FUNCTIONS *
      ***************************/
+    public function update($id, $arr) { return $this->updater->update($id, $arr); }
     public function update_by($column_name, $column_value, $arr) 
     { 
         return $this->updater->update_by($column_name, $column_value, $arr); 
+    }
+
+    /**************************
+     * DELETER CLASS FUNCTIONS *
+     ***************************/
+    public function delete($id) {  return $this->deleter->delete($id); }
+    public function delete_by($column_name, $column_value) 
+    {  
+        return $this->deleter->delete_by($column_name, $column_value); 
     }
 } 
