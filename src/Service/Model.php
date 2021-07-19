@@ -4,15 +4,18 @@ namespace Sigfw\Service;
 
 use Sigfw\Service\CRUD\Reader;
 use Sigfw\Service\CRUD\Creater;
+use Sigfw\Service\CRUD\Updater;
 
 class Model
 {
     private $reader = null;
     private $creater = null;
+    
     public function __construct($table_name)
     {
         $this->reader = new Reader($table_name);
         $this->creater = new Creater($table_name);
+        $this->updater = new Updater($table_name);
     }
 
     /**************************
@@ -30,4 +33,12 @@ class Model
      * CREATER CLASS FUNCTIONS *
      ***************************/
     public function insert($arr) { return $this->creater->insert($arr); }
+
+    /**************************
+     * UPDATER CLASS FUNCTIONS *
+     ***************************/
+    public function update_by($column_name, $column_value, $arr) 
+    { 
+        return $this->updater->update_by($column_name, $column_value, $arr); 
+    }
 } 
