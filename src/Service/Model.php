@@ -2,8 +2,8 @@
 
 namespace Sigfw\Service;
 
-use Sigfw\Service\CRUD\Reader;
 use Sigfw\Service\CRUD\Creater;
+use Sigfw\Service\CRUD\Reader;
 use Sigfw\Service\CRUD\Updater;
 use Sigfw\Service\CRUD\Deleter;
 
@@ -14,12 +14,17 @@ class Model
     
     public function __construct($table_name)
     {
-        $this->reader = new Reader($table_name);
         $this->creater = new Creater($table_name);
+        $this->reader = new Reader($table_name);
         $this->updater = new Updater($table_name);
         $this->deleter = new Deleter($table_name);
     }
 
+    /**************************
+     * CREATER CLASS FUNCTIONS *
+     ***************************/
+    public function insert($arr) { return $this->creater->insert($arr); }
+    
     /**************************
      * READER CLASS FUNCTIONS *
      ***************************/
@@ -30,11 +35,6 @@ class Model
     public function get_all_by($column_name, $value) { return $this->reader->get_all_by($column_name, $value); }
     public function get_number_of_pages($limit) { return $this->reader->get_number_of_pages($limit); }
     public function get_page($page, $limit = 10) { return $this->reader->get_page($page, $limit = 10); }
-
-    /**************************
-     * CREATER CLASS FUNCTIONS *
-     ***************************/
-    public function insert($arr) { return $this->creater->insert($arr); }
 
     /**************************
      * UPDATER CLASS FUNCTIONS *
