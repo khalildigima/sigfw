@@ -2,13 +2,10 @@
 
 require_once __DIR__ . "/vendor/autoload.php";
 
-use Sigfw\Service\Model;
+use Sigfw\Model\Posts;
 use Sigfw\Service\Utils;
+use Sigfw\Service\Logger;
 
-$model = new Model('posts');
-
-$arr = [];
-$arr["body"] = "sigfw updated";
-
-$result = $model->get_all();
+$model = new Posts();
+$result = $model->get_custom();
 Utils::dump($result);
