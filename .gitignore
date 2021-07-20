@@ -1,4 +1,6 @@
 .gitignore
+*.gitignore
 vendor
 Service/.env
+Service/*.env
 /Service/.env
