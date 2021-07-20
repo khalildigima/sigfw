@@ -44,8 +44,8 @@ class Config
         $this->debug = getenv('DEBUG');
         $this->deploy = getenv('DEPLOY');
 
-        $this->set_development_config($_development);
-        $this->set_production_config($_production);
+        $this->set_development_creds($_development);
+        $this->set_production_creds($_production);
 
     }
 
@@ -76,21 +76,21 @@ class Config
         }
     }
     
-    private function validate_configuration($config)
+    public function validate_creds($creds)
     {
-        if(!is_array($config)) return false;
+        if(!is_array($creds)) return false;
 
-        if(!array_key_exists("host", $config)) return false;
-        if(!array_key_exists("username", $config)) return false;
-        if(!array_key_exists("password", $config)) return false;
-        if(!array_key_exists("dbname", $config)) return false;
+        if(!array_key_exists("host", $creds)) return false;
+        if(!array_key_exists("username", $creds)) return false;
+        if(!array_key_exists("password", $creds)) return false;
+        if(!array_key_exists("dbname", $creds)) return false;
 
         return true;
     }
 
-    public function set_development_config($config)
+    public function set_development_creds($creds)
     {
-        if(!$this->validate_configuration($config))
+        if(!$this->validate_creds($creds))
         {
             $this->development = null;
             return null;    
@@ -98,19 +98,19 @@ class Config
 
         // for development or local hosting
         $this->development = array(
-            "host" => $config["host"],
-            "username" => $config["username"],
-            "password" => $config["password"],
-            "dbname" => $config["dbname"]
+            "host" => $creds["host"],
+            "username" => $creds["username"],
+            "password" => $creds["password"],
+            "dbname" => $creds["dbname"]
         );
     }
 
-    public function get_development_config() { return $this->development; }
+    public function get_development_creds() { return $this->development; }
 
     
-    public function set_production_config($config)
+    public function set_production_creds($creds)
     {
-        if(!$this->validate_configuration($config))
+        if(!$this->validate_creds($creds))
         {
             $this->production = null;
             return null;    
@@ -118,13 +118,13 @@ class Config
         
         // for production or local hosting
         $this->production = array(
-            "host" => $config["host"],
-            "username" => $config["username"],
-            "password" => $config["password"],
-            "dbname" => $config["dbname"]
+            "host" => $creds["host"],
+            "username" => $creds["username"],
+            "password" => $creds["password"],
+            "dbname" => $creds["dbname"]
         );
     }
 
-    public function get_production_config() { return $this->production; }
+    public function get_production_creds() { return $this->production; }
 
 }
