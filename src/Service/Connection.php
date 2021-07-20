@@ -13,23 +13,7 @@ class Connection
     
     public function __construct()
     {
-        $_development = array(
-            "host" => "localhost",
-            "username" => "root",
-            "password" => "",
-            "dbname" => "api_sfw"
-        );
-
-        $_production = array(
-            "host" => "localhost",
-            "username" => "root",
-            "password" => "",
-            "dbname" => "api_sfw"
-        );
-
         $this->config = new Config();
-        $this->config->set_development_config($_development);
-        $this->config->set_production_config($_production);
     }
 
     public function get_connection()
