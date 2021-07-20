@@ -41,8 +41,25 @@ class Utils
 
     public static function dump($var)
     {
+        echo "========";
         echo "<pre>";
         var_dump($var);
         echo "</pre>";
+        echo "========";
+    }
+
+    public static function remove_key($key, $arr)
+    {
+        if(!is_array($arr)) return $arr;
+        if(!array_key_exists($key,$arr));
+        unset($arr[$key]);
+        return $arr;
+    }
+
+    public static function remove_dates($arr)
+    {
+        $arr = self::remove_key("created_at", $arr);
+        $arr = self::remove_key("modified_at", $arr);
+        return $arr;
     }
 }
