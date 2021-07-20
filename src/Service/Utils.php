@@ -45,7 +45,7 @@ class Utils
         echo "<pre>";
         var_dump($var);
         echo "</pre>";
-        echo "========";
+        
     }
 
     public static function remove_key($key, $arr)
