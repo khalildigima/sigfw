@@ -2,18 +2,21 @@
 
 namespace Sigfw\Service;
 
+use Sigfw\Service\CRUD\Base;
 use Sigfw\Service\CRUD\Creater;
 use Sigfw\Service\CRUD\Reader;
 use Sigfw\Service\CRUD\Updater;
 use Sigfw\Service\CRUD\Deleter;
 
-class Model
+class Model extends Base
 {
     private $reader = null;
     private $creater = null;
     
     public function __construct($table_name)
     {
+        parent::__construct($table_name);
+        
         $this->creater = new Creater($table_name);
         $this->reader = new Reader($table_name);
         $this->updater = new Updater($table_name);
@@ -53,4 +56,4 @@ class Model
     {  
         return $this->deleter->delete_by($column_name, $column_value); 
     }
-} 
+}
