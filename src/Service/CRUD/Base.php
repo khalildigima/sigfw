@@ -3,6 +3,7 @@
 namespace Sigfw\Service\CRUD;
 
 use Sigfw\Service\Connection;
+use Sigfw\Service\Logger;
 
 class Base
 {
@@ -37,14 +38,14 @@ class Base
     {
         if($this->get_table_name() == "")
         {
-            Logger::add_new_error("table name is empty");
+            Logger::add_error_message("table name is empty");
             return null;
         }
         
         $con = $this->get_connection();
         if(!$con)
         {
-            Logger::add_new_error("No database connection");
+            Logger::add_error_message("No database connection");
             return null;
         }
 
