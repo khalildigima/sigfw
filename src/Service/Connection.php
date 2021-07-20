@@ -9,40 +9,50 @@ use PDO;
 class Connection
 {
     private $config = null;
-    
+    private $creds = null;
     
     public function __construct()
     {
         $this->config = new Config();
+
+        if(!$this->config->is_deploy()) 
+        {
+            $this->creds = $this->config->get_development_creds();
+        }
+        else
+        {
+            $this->creds = $this->config->get_production_creds();
+        }
+
+        if(!$this->creds)
+        {
+            Logger::add_error_message("DB config is empty");
+            return null;
+        }
     }
 
-    public function get_connection()
+    public function get_connection($creds = null)
     {
+
         $con = null;
-        $_config = null;
+        $_creds = null;
+        
+        if($this->config->validate_creds($creds))
+        {
+            $_creds = $creds;
+        }
+        else 
+        {
+            $_creds = $this->creds;
+        }
+        
         try 
         {
             
-            if(!$this->config->is_deploy()) 
-            {
-                $_config = $this->config->get_development_config();
-            }
-            else
-            {
-                $_config = $this->config->get_production_config();
-            }
-
-            if(!$_config)
-            {
-                Logger::add_error_message("DB config is empty");
-                return null;
-            }
-
-
             $con = new PDO(
-                'mysql:host=' . $_config["host"] .';dbname=' . $_config["dbname"],
-                $_config["username"], 
-                $_config["password"],
+                'mysql:host=' . $_creds["host"] .';dbname=' . $_creds["dbname"],
+                $_creds["username"], 
+                $_creds["password"],
             );
             
 
