@@ -8,11 +8,11 @@ use Sigfw\Model\Users;
 use PDO;
 use PDOException;
 
-class Users extends Model
+class UserImages extends Model
 {
     public function __construct()
     {
-        parent::__construct("users");
+        parent::__construct("user_images");
     }
 
     public function get_images($user_id)
