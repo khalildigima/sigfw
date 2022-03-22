@@ -19,7 +19,7 @@ class Config
 
     public function __construct()
     {
-        $file = __DIR__ . "/.env";
+        $file = __DIR__ . "/.env.php";
         $this->load_configuration_from_file($file);
     }
 
